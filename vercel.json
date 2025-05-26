@@ -1,0 +1,17 @@
+{
+  "builds": [
+    {
+      "src": "my-portfolio/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "my-portfolio/dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "my-portfolio/index.html"
+    }
+  ]
+}
