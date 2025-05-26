@@ -14,4 +14,9 @@ export default defineConfig({
       },
     },
     base: './',
+    server: {
+    hmr: {
+      host: 'localhost',
+    },
+  },
 })
