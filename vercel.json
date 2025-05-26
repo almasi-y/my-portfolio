@@ -1,17 +1,17 @@
 {
   "builds": [
     {
-      "src": "package.json",
+      "src": "my-portfolio/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "my-portfolio/dist"
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "my-portfolio/index.html"
     }
   ]
 }
