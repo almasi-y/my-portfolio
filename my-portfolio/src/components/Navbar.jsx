@@ -52,7 +52,6 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="fixed top-20 left-0 w-full bg-[#a98274] z-40 flex flex-col items-center md:hidden shadow-2xl">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square h-5 w-5 text-swahilipot-600"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
           <ul className="w-full flex flex-col items-center space-y-2 py-4">
             {links.map(link => (
               <li key={link.href} className="w-full">
@@ -73,4 +72,3 @@ export default function Navbar() {
     </>
   );
 }
-//<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square h-5 w-5 text-swahilipot-600"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
