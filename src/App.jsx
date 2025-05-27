@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Skills from './pages/Skills';
@@ -18,33 +18,31 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    
-      <div className="scroll-smooth">
-        <Navbar />
-        <main className="bg-white">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <HomeSection />
-                  <AboutSection />
-                  <SkillsSection />
-                  <ProjectsSection />
-                  <EducationSection />
-                  <ContactSection />
-                </>
-              }
-            />
-            <Route path="/about" element={<About />} />
-            <Route path="/skills" element={<Skills />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/education" element={<Education />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    
+    <div className="scroll-smooth">
+      <Navbar />
+      <main className="bg-white">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <HomeSection />
+                <AboutSection />
+                <SkillsSection />
+                <ProjectsSection />
+                <EducationSection />
+                <ContactSection />
+              </>
+            }
+          />
+          <Route path="/about" element={<About />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/education" element={<Education />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   );
 }
