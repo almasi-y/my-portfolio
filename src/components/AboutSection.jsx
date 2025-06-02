@@ -77,29 +77,7 @@ export const AboutSection = () => {
           </div>
         </div>
         {/* Hide duplicate navbars on small screens */}
-        <style>
-          {`
-            .navbar, .navbar-collapse, .navbar-nav {
-              @media (max-width: 767px) {
-                display: none !important;
-              }
-            }
-            .theme-toggle, .ThemeToggle {
-              display: none !important;
-            }
-          `}
-        </style>
-        {/* Hamburger menu for small screens */}
-        <div className="md:hidden flex justify-end mt-4">
-          <button
-            className="p-2 rounded focus:outline-none"
-            aria-label="Open menu"
-          >
-            <span className="block w-8 h-1 bg-gray-300 mb-1 rounded"></span>
-            <span className="block w-8 h-1 bg-gray-300 mb-1 rounded"></span>
-            <span className="block w-8 h-1 bg-gray-300 rounded"></span>
-          </button>
-        </div>
+        {/* Removed style and hamburger menu button to ensure hamburger only appears in Navbar */}
       </div>
     </section>
   );
