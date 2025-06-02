@@ -68,10 +68,22 @@ export const NavBar = () => {
           aria-controls="basic-navbar-nav"
           className="d-md-none"
           onClick={() => setIsMenuOpen(true)}
+          style={{
+            background: "#fff",
+            border: "none",
+            borderRadius: "0.75rem", // More rectangular, less circular
+            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+            width: "56px", // Wider for rectangular look
+            height: "40px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 0,
+          }}
         >
-          <Menu />
+          <Menu color="#222" size={28} />
         </Navbar.Toggle>
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav" className="d-none d-md-flex">
           <Nav className="ms-auto d-flex flex-wrap align-items-center">
             {navItems.map((item, key) => (
               <Nav.Link
@@ -125,8 +137,8 @@ export const NavBar = () => {
             : "opacity-0 pointer-events-none"
         )}
         style={{
-          background: "rgba(20, 20, 40, 0.85)",
-          backdropFilter: "blur(12px)",
+          background: "rgba(25, 25, 59, 0.85)",
+          backdropFilter: "blur(8px)",
         }}
       >
         <button
@@ -139,15 +151,23 @@ export const NavBar = () => {
         </button>
         <div className="flex flex-col space-y-8 text-2xl font-semibold">
           {navItems.map((item, key) => (
-            <a
+            <button
               key={key}
-              href={item.href}
-              className="text-white hover:text-primary px-6 py-3 rounded-lg hover:bg-white/10 transition-colors duration-300"
               onClick={e => handleNavClick(e, item.href, item.name)}
-              style={{ letterSpacing: "0.04em" }}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "#fff",
+                padding: "0.75rem 2rem",
+                borderRadius: "0.75rem",
+                cursor: "pointer",
+                transition: "background 0.2s, color 0.2s",
+                letterSpacing: "0.04em"
+              }}
+              className="hover:bg-white/10 hover:text-primary focus:outline-none"
             >
               {item.name}
-            </a>
+            </button>
           ))}
         </div>
       </div>
