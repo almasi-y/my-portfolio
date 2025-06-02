@@ -1,36 +1,123 @@
+import { Container, Row, Col, Tab, Nav } from "react-bootstrap";
+import { ProjectCard } from "../components/ProjectCard";
+import projImg1 from "../assets/img/project-img1.png";
+import projImg2 from "../assets/img/project-img2.png";
+import projImg3 from "../assets/img/project-img3.png";
+import colorSharp2 from "../assets/img/color-sharp2.png";
+import 'animate.css';
+import TrackVisibility from 'react-on-screen';
 
-export default function Projects() {
+export const Projects = () => {
+
   const projects = [
     {
-      name: 'Portfolio Website',
-      description: 'A modern personal portfolio built with React and Tailwind CSS.',
-      tech: ['React', 'Tailwind CSS'],
-      live: 'https://your-live-link.com',
-      github: 'https://github.com/almasi-y/portfolio'
+      title: "Business Startup",
+      description: "Design & Development",
+      imgUrl: projImg1,
     },
     {
-      name: 'Task Tracker',
-      description: 'A to-do app with CRUD features.',
-      tech: ['React', 'CSS', 'LocalStorage'],
-      live: 'https://task-tracker-demo.com',
-      github: 'https://github.com/almasi-y/task-tracker'
-    }
+      title: "Business Startup",
+      description: "Design & Development",
+      imgUrl: projImg2,
+    },
+    {
+      title: "Business Startup",
+      description: "Design & Development",
+      imgUrl: projImg3,
+    },
   ];
 
   return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold text-green-700 mb-4">Projects</h2>
-      <div className="grid gap-6">
-        {projects.map(project => (
-          <div key={project.name} className="bg-white p-4 rounded shadow hover:shadow-lg transition">
-            <h3 className="text-xl font-bold text-green-800">{project.name}</h3>
-            <p className="text-gray-700 mb-2">{project.description}</p>
-            <p className="text-sm text-gray-600 mb-2">Technologies: {project.tech.join(', ')}</p>
-            <a href={project.live} className="text-green-600 underline mr-2" target="_blank" rel="noopener noreferrer">Live</a>
-            <a href={project.github} className="text-green-600 underline" target="_blank" rel="noopener noreferrer">GitHub</a>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+    <section className="project" id="projects">
+      <Container>
+        <Row className="justify-content-center">
+          <Col xs={12} md={10} lg={8}>
+            <TrackVisibility>
+              {({ isVisible }) =>
+                <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
+                  <h2 className="text-center mb-4 font-bold text-3xl tracking-tight">Projects</h2>
+                  <p className="text-center mb-5 text-gray-300">
+                    Here are some of my recent works. Click on each to learn more!
+                  </p>
+                  <Tab.Container id="projects-tabs" defaultActiveKey="first">
+                    <Nav variant="pills" className="nav-pills mb-5 justify-content-center align-items-center" id="pills-tab">
+                      <Nav.Item>
+                        <Nav.Link eventKey="first">Project 1</Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link eventKey="second">Project 2</Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link eventKey="third">Project 3</Nav.Link>
+                      </Nav.Item>
+                    </Nav>
+                    <Tab.Content id="slideInUp" className={isVisible ? "animate__animated animate__slideInUp" : ""}>
+                      <Tab.Pane eventKey="first">
+                        <Row className="justify-content-center">
+                          <Col xs={12} className="d-flex justify-content-center align-items-center p-0">
+                            <ProjectCard
+                              {...projects[0]}
+                              imgStyle={{
+                                width: "100vw",
+                                height: "75vh",
+                                maxWidth: "100vw",
+                                maxHeight: "75vh",
+                                minHeight: "300px",
+                                objectFit: "cover",
+                                borderRadius: "1.5rem",
+                                boxShadow: "0 8px 32px 0 rgba(60,60,180,0.18)"
+                              }}
+                            />
+                          </Col>
+                        </Row>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="second">
+                        <Row className="justify-content-center">
+                          <Col xs={12} className="d-flex justify-content-center align-items-center p-0">
+                            <ProjectCard
+                              {...projects[1]}
+                              imgStyle={{
+                                width: "100vw",
+                                height: "75vh",
+                                maxWidth: "100vw",
+                                maxHeight: "75vh",
+                                minHeight: "300px",
+                                objectFit: "cover",
+                                borderRadius: "1.5rem",
+                                boxShadow: "0 8px 32px 0 rgba(60,60,180,0.18)"
+                              }}
+                            />
+                          </Col>
+                        </Row>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="third">
+                        <Row className="justify-content-center">
+                          <Col xs={12} className="d-flex justify-content-center align-items-center p-0">
+                            <ProjectCard
+                              {...projects[2]}
+                              imgStyle={{
+                                width: "100vw",
+                                height: "75vh",
+                                maxWidth: "100vw",
+                                maxHeight: "75vh",
+                                minHeight: "300px",
+                                objectFit: "cover",
+                                borderRadius: "1.5rem",
+                                boxShadow: "0 8px 32px 0 rgba(60,60,180,0.18)"
+                              }}
+                            />
+                          </Col>
+                        </Row>
+                      </Tab.Pane>
+                    </Tab.Content>
+                  </Tab.Container>
+                </div>
+              }
+            </TrackVisibility>
+          </Col>
+        </Row>
+      </Container>
+      <img className="background-image-right" src={colorSharp2} alt="" />
+    </section>
+  )
 }

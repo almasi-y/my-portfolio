@@ -1,76 +1,157 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import logo from '../assets/img/logo.svg';
+import navIcon1 from '../assets/img/nav-icon1.svg';
+import navIcon2 from '../assets/img/nav-icon2.svg';
+import navIcon3 from '../assets/img/nav-icon3.svg';
+import { HashLink } from 'react-router-hash-link';
+import {BrowserRouter as Router} from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { Menu, X } from "lucide-react";
+import { FaGithub } from 'react-icons/fa';
 
-const links = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Education', href: '#education' },
-  { name: 'Contact', href: '#contact' }
+const navItems = [
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Skills", href: "#skills" },
+  { name: "Projects", href: "#projects" },
+  { name: "Education", href: "#education" },
+  { name: "Contact", href: "#contact" },
 ];
 
-export default function Navbar() {
+export const NavBar = () => {
+
+  const [activeLink, setActiveLink] = useState('home');
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    const onScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [])
+
+  const onUpdateActiveLink = (value) => {
+    setActiveLink(value);
+  }
+
+  // Helper to scroll smoothly to section
+  const handleNavClick = (e, href, name) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const el = document.getElementById(href.replace("#", ""));
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+        setActiveLink(name.toLowerCase());
+        setIsMenuOpen(false);
+      }
+    }
+  };
 
   return (
-    <>
-      <nav className={`fixed w-full z-50 flex justify-between items-center px-4 md:px-10 lg:px-16 py-4 md:py-6 transition-all duration-700 ${
-        scrolled ? 'shadow-2xl' : ''
-      } bg-[#a98274]`}>
-        <h1 className="text-xl md:text-2xl font-bold text-white tracking-tight font-sans select-none uppercase">
-          Portfolio
-        </h1>
-        {/* Hamburger menu for small screens */}
-        <button
-          className="md:hidden text-white text-3xl focus:outline-none"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle navigation"
+    //<Router>
+      <Navbar expand="md" className={scrolled ? "scrolled" : ""}>
+      <Container className="flex flex-wrap items-center justify-between">
+        <Navbar.Brand style={{ color: "#fff" }}>
+          <p style={{ color: "#fff", margin: 0 }}>PORTFOLIO</p>
+        </Navbar.Brand>
+        {/* Responsive toggle for mobile */}
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          className="d-md-none"
+          onClick={() => setIsMenuOpen(true)}
         >
-          ☰
-        </button>
-        {/* Desktop menu */}
-        <ul className="hidden md:flex space-x-4 lg:space-x-8">
-          {links.map(link => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="text-white font-semibold text-lg px-3 lg:px-4 py-2 rounded-xl hover:bg-white hover:text-[#a98274] transition border border-white"
+          <Menu />
+        </Navbar.Toggle>
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto d-flex flex-wrap align-items-center">
+            {navItems.map((item, key) => (
+              <Nav.Link
+                key={key}
+                href={item.href}
+                className={activeLink === item.name.toLowerCase() ? 'active navbar-link' : 'navbar-link'}
+                onClick={e => handleNavClick(e, item.href, item.name)}
+                style={{ color: "#fff" }}
               >
-                {link.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="fixed top-20 left-0 w-full bg-[#a98274] z-40 flex flex-col items-center md:hidden shadow-2xl">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square h-5 w-5 text-swahilipot-600"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-          <ul className="w-full flex flex-col items-center space-y-2 py-4">
-            {links.map(link => (
-              <li key={link.href} className="w-full">
-                <a
-                  href={link.href}
-                  className="block w-full text-white font-semibold text-lg px-4 py-3 rounded-xl hover:bg-white hover:text-[#a98274] transition border border-white text-center"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
-              </li>
+                {item.name}
+              </Nav.Link>
             ))}
-          </ul>
+          </Nav>
+          <span className="navbar-text d-flex flex-wrap align-items-center mt-2 mt-md-0">
+            <div className="social-icon me-2">
+              <a
+                href="https://www.linkedin.com/in/wavinya-avril-diamond-a550b5329?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                className="social-icon-link"
+              >
+                <img src={navIcon1} alt="" />
+              </a>
+              <a
+                href="https://github.com/almasi-y"
+                className="social-icon-link"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                  alt="GitHub"
+                />
+              </a>
+              <a
+                href="https://www.instagram.com/___.avril?igsh=aGZ0bDJwNTdjN3N4"
+                className="social-icon-link"
+              >
+                <img src={navIcon3} alt="" />
+              </a>
+            </div>
+            <HashLink to='#connect'>
+              <button className="vvd"><span>Let’s Connect</span></button>
+            </HashLink>
+          </span>
+        </Navbar.Collapse>
+      </Container>
+      {/* Mobile Menu Toggle */}
+      <div
+        className={cn(
+          "fixed inset-0 z-40 flex flex-col items-center justify-center",
+          "transition-all duration-300 md:hidden",
+          isMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        )}
+        style={{
+          background: "rgba(20, 20, 40, 0.85)",
+          backdropFilter: "blur(12px)",
+        }}
+      >
+        <button
+          className="absolute top-6 right-6 text-3xl"
+          onClick={() => setIsMenuOpen(false)}
+          aria-label="Close menu"
+          style={{ background: "none", border: "none", color: "#fff" }}
+        >
+          <X />
+        </button>
+        <div className="flex flex-col space-y-8 text-2xl font-semibold">
+          {navItems.map((item, key) => (
+            <a
+              key={key}
+              href={item.href}
+              className="text-white hover:text-primary px-6 py-3 rounded-lg hover:bg-white/10 transition-colors duration-300"
+              onClick={e => handleNavClick(e, item.href, item.name)}
+              style={{ letterSpacing: "0.04em" }}
+            >
+              {item.name}
+            </a>
+          ))}
         </div>
-      )}
-      {/* Spacer for fixed navbar */}
-      <div className="h-20 md:h-26"></div>
-    </>
-  );
+      </div>
+      </Navbar>
+   // </Router>
+  )
 }
-//<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square h-5 w-5 text-swahilipot-600"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>

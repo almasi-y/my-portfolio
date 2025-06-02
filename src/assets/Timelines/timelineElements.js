@@ -1,0 +1,48 @@
+const timelineElements = [
+  {
+    id: 1,
+    title: "Student at Technical University of Mombasa",
+    location: "Mombasa, Kenya",
+    description: "Major in degree in Computer Science",
+    buttonText: "Details",
+    date: "2023-to date",
+    icon: "school",
+    color: "blue",
+    tech: ["JavaScript", "HTML", "CSS", "Java"],
+  },
+  {
+    id: 2,
+    title: "Software Developer Internship at SPH",
+    location: "Mombasa, Kenya",
+    description: "Worked on web development projects",
+    buttonText: "Details",
+    date: "2025-to date",
+    icon: "work",
+    color: "purple",
+    tech: ["JavaScript", "React", "Node.js", "SQL"],
+  },
+  {
+    id: 3,
+    title: "Cisco Networking Academy",
+    location: "Mombasa, Kenya",
+    description: "Completed courses in networking and security",
+    buttonText: "Details",
+    date: "Sept 2024- Dec 2024",
+    icon: "school",
+    color: "yellow",
+    tech: ["Networking", "Security", "Python", "Linux"],
+  },
+  {
+    id:4,
+    title: "Started Freelancing",
+    location: "Mombasa, Kenya",
+    description: "Began working as a freelance developer",
+    buttonText: "Details",
+    date: "2025-present",
+    icon: "work",
+    color: "orange",
+    tech: ["JavaScript", "React", "HTML", "CSS", "Python"],
+  },
+];
+
+export default timelineElements;
