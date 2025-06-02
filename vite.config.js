@@ -7,14 +7,14 @@ export default defineConfig({
   base: '/my-portfolio/',
   plugins: [
     tailwindcss(),
-    react()
-  ],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
+    react()],
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+      },
     },
-  },
-  server: {
+    base: '/my-portfolio/',
+    server: {
     hmr: {
       host: 'localhost',
     },

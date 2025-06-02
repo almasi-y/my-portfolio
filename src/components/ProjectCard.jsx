@@ -1,21 +1,15 @@
-export default function ProjectCard({ title, description, tech, github, live }) {
+import { Col } from "react-bootstrap";
+
+export const ProjectCard = ({ title, description, imgUrl }) => {
   return (
-    <div className="border rounded-2xl shadow-md p-6 bg-green hover:shadow-lg transition">
-      <h3 className="text-xl font-semiboldtext-[#a98274] mb-2">{title}</h3>
-      <p className="text-white-100 mb-2">{description}</p>
-      <p className="text-sm text-white-500 mb-4">Technologies: {tech}</p>
-      <div className="flex space-x-4">
-        {github && (
-          <a href={github} target="_blank" rel="noopener noreferrer" className="text-[#a98274] underline">
-            GitHub
-          </a>
-        )}
-        {live && (
-          <a href={live} target="_blank" rel="noopener noreferrer" className="text-[#a98274] underline">
-            Live Site
-          </a>
-        )}
+    <Col size={12} sm={6} md={4}>
+      <div className="proj-imgbx">
+        <img src={imgUrl} />
+        <div className="proj-txtx">
+          <h4>{title}</h4>
+          <span>{description}</span>
+        </div>
       </div>
-    </div>
-  );
+    </Col>
+  )
 }

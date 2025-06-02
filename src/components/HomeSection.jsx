@@ -1,100 +1,112 @@
 import { StarBackground } from './StarBackground';
 import { ThemeToggle } from './ThemeToggle';
-import profile from '../assets/profile.jpg';
+import profile from '../assets/img/profile.jpg';
 import { motion } from 'framer-motion';
-
+import { useState, useEffect } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+//import headerImg from "../assets/img/header-img.svg";
+import { ArrowRightCircle } from 'react-bootstrap-icons';
+import 'animate.css';
+import TrackVisibility from 'react-on-screen';
 
 export default function HomeSection() {
+  const [loopNum, setLoopNum] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [text, setText] = useState('');
+  const [delta, setDelta] = useState(300 - Math.random() * 100);
+  const [index, setIndex] = useState(1);
+  const toRotate = [ "Web Developer", "Web Designer", "UI/UX Designer" ];
+  const period = 2000;
+
+  useEffect(() => {
+    let ticker = setInterval(() => {
+      tick();
+    }, delta);
+
+    return () => { clearInterval(ticker) };
+  }, [text])
+
+
+  const tick = () => {
+    let i = loopNum % toRotate.length;
+    let fullText = toRotate[i];
+    let updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
+
+    setText(updatedText);
+
+    if (isDeleting) {
+      setDelta(prevDelta => prevDelta / 2);
+    }
+
+    if (!isDeleting && updatedText === fullText) {
+      setIsDeleting(true);
+      setIndex(prevIndex => prevIndex - 1);
+      setDelta(period);
+    } else if (isDeleting && updatedText === '') {
+      setIsDeleting(false);
+      setLoopNum(loopNum + 1);
+      setIndex(1);
+      setDelta(500);
+    } else {
+      setIndex(prevIndex => prevIndex + 1);
+    }
+  }
+
+
   return (
-    <main className="scroll-smooth bg-black dark:bg-black">
-      <section
-        id="home"
-        className="flex flex-col md:flex-row items-center justify-center min-h-[60vh] md:min-h-[65vh] h-auto
-          bg-green dark:bg-green-950
-          text-[#4E342E] dark:text-[#4E342E]
-          text-center md:text-left px-4"
-      >
-        <ThemeToggle />
-        <StarBackground />
-        <span className=" flex-1 flex justify-center items-center mb-8 md:mb-0 relative">
-          {/* Button behind the image */}
-          <motion.button
-            type="button"
-            tabIndex={-1}
-            aria-hidden="true"
-            className="absolute left-[174px] bottom-[-14px] w-64 h-full rounded-full z=0"
-            style={{
-              background: '#4E342E',
-              border: 'none',
-              pointerEvents: 'none',
-               boxShadow: '0 12px 32px 0 rgba(32, 16, 16, 0.18)',
-            }}
-            disabled
-            initial={{ y: 0 }}
-            animate={{ y: [0, -8, 0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-          />
-          <motion.img
-            src={profile}
-            alt="Profile"
-            className="w-64 h-80 object-cover rounded-full shadow-lg relative z-10"
-            initial={{ y: 0 }}
-            animate={{ y: [0, -8, 0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-          />
-        </span>
-        <div className="hidden md:block h-64 w-2 bg-[#4E342E] mx-8 rounded-full" />
-        <span className="flex-1 flex flex-col items-center md:items-start">
-          <motion.h1
-            className="text-5xl font-extrabold mb-2 font-[Recoleta]"
-            style={{
-              color: '#4E342E',
-              textShadow: '0 4px 32px #4E342E55',
-              fontFamily: 'Recoleta, serif',
-              fontWeight: 700
-            }}
-            initial={{ y: 0 }}
-            animate={{ y: [0, -8, 0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-          >
-            Avril Diamond
-          </motion.h1>
-          <motion.p
-            className="text-xl mb-6 font-[Recoleta]"
-            style={{
-              color: '#4E342E',
-              textShadow: '0 2px 12px #4E342E33',
-              fontFamily: 'Recoleta, serif',
-              fontWeight: 700
-            }}
-            initial={{ y: 0 }}
-            animate={{ y: [0, -8, 0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-          >
-            Software Developer | Frontend Specialist
-          </motion.p>
-          <motion.div
-            className="space-x-4"
-            initial={{ y: 0 }}
-            animate={{ y: [0, -8, 0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-          >
-            <a
-              href="#projects"
-              className="px-6 py-3 bg-[#4E342E] text-white rounded-full shadow hover:bg-[#3E2723] transition font-[Recoleta] font-bold"
-            >
-              View My Work
-            </a>
-            <a
-              href="/resume.pdf"
-              download
-              className="px-6 py-3 border-2 border-[#4E342E] text-[#4E342E] rounded-full hover:bg-[#3E2723] hover:text-white dark:hover:bg-gray-800 transition font-[Recoleta] font-bold"
-            >
-              Download Resume
-            </a>
-          </motion.div>
-        </span>
-      </section>
-    </main>
-  );
+    <section className="banner dark" id="home">
+      <StarBackground />
+      <ThemeToggle />
+      <Container>
+        <Row className="aligh-items-center">
+          <Col xs={12} md={6} xl={7}>
+            <TrackVisibility>
+              {({ isVisible }) =>
+              <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
+                <span className="tagline">Welcome to my Portfolio</span>
+                <h1>{`  Hi! I'm Diamond`} <span className="txt-rotate " dataPeriod="1000" data-rotate='[ " FullStack Developer", " Web Designer", " UI/UX Designer" ]'> <span className="wrap"> {text} </span> </span> </h1>
+                  <p>I MAKE WEBSITES THAT BLOW YOUR MIND!!</p>
+                  <button onClick={() => console.log('connect')}>Let’s Connect <ArrowRightCircle size={25} /></button>
+                 <div className="d-flex flex-wrap gap-2 mt-3">
+                    <a
+                      href="#projects"
+                      className="btn btn-primary"
+                      style={{ minWidth: 140 }}
+                    >
+                      View My Work
+                    </a>
+                    <a
+                      href="/resume.pdf"
+                      className="btn btn-outline-secondary"
+                      style={{ minWidth: 140 }}
+                      download
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download Resume
+                    </a>
+                  </div>
+              </div>}
+            </TrackVisibility>
+          </Col>
+          <Col xs={12} md={6} xl={5}>
+            <TrackVisibility>
+              {({ isVisible }) =>
+                <div className={isVisible ? "animate__animated animate__zoomIn" : "" }>
+                  <div className="profile-img-wrapper">
+                    <div className="profile-img-bg"></div>
+                    <img
+                      src={profile}
+                      alt="Home Img"
+                      className="profile-img"
+                    />
+                  </div>
+                </div>}
+            </TrackVisibility>
+          </Col>
+        </Row>
+      </Container>
+    </section>
+  )
 }
+
